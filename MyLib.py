@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-def show_montage(X, n, m, h, w):
+def show_montage(X, n, m, h, w, title=''):
     '''
     X: image matrix in which each column represents an image
     n, m: image size n x m
@@ -14,6 +14,9 @@ def show_montage(X, n, m, h, w):
         ax.imshow(X[:,i].reshape(m, n).T, cmap='gray')
         ax.set_xticks([])
         ax.set_yticks([])
+    plt.suptitle(title)
+    # plt.tight_layout()
+    # plt.subplots_adjust(top=0.9, bottom=0.1, left=0.1, right=0.9, hspace=0.4, wspace=0.4)
     plt.show()
 
 # ---------------------------------------
