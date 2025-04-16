@@ -1,11 +1,11 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-def show_montage(X, n, m, h, w, title=''):
+def show_montage(X, m, n, w, h, title=''):
     '''
     X: image matrix in which each column represents an image
-    n, m: image size n x m
-    h, w : create an h x w montage image with figsize = (w,h)
+    m, n: image size m x n
+    w, h : create an w x h montage image with figsize = (w,h)
     '''
     fig, axes = plt.subplots(h, w, figsize=(w, h))
     if X.shape[1] < w * h: # 影像張數不到 w x h 張，用 0 向量補齊     
