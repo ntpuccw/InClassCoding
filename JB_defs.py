@@ -45,34 +45,33 @@ def JB_statistic(sample_data):
     n_val = sample_data.shape[1]
     samples = sample_data
     g1_val = np.sqrt(n_val / 6) * skew(samples, axis=1, bias=False)
-        # compute G2
-    g2_val = kurtosis(samples, axis=1, fisher=True, bias=False)
-    g2_val = np.sqrt(n_val / 24) * g2_val
+    g2_val = np.sqrt(n_val / 24) * kurtosis(samples, axis=1, fisher=True, bias=False)
     JB_stat = g1_val**2 + g2_val**2
     
     JB_p_value = 1 - chi2.cdf(JB_stat, df=2)
     return {'statistic': JB_stat, 'p_value': JB_p_value}
 
-# def normality_test(sample_data, test, alpha=0.05):
-#     """
-#     Performs a normality test on the given data.
+def normality_test(sample_data, test, alpha=0.05):
+    """
+    Performs a normality test on the given data.
 
-#     Args:
-#         sample_data: The data to test for normality.
-#         test: The type of normality test to perform.
-#         alpha: The significance level for the test.
+    Args:
+        sample_data: The data to test for normality.
+        test: The type of normality test to perform.
+        alpha: The significance level for the test.
 
-#     Returns:
-#         A dictionary containing the test statistic and p-value.
-#     """
-#     from scipy import stats
+    Returns:
+        A dictionary containing the test statistic and p-value.
+    """
+    from scipy import stats
 
-#     if test == 'JB':
-#         stat, p_value = JB_statistic(sample_data)
-#     elif test == 'shapiro':
-#         stat, p_value = stats.shapiro(sample_data)
-#     # elif test == 'jarque_bera':
-#     #     stat, p_value = stats.jarque_bera(sample_data)
-#     else:
-#         raise ValueError("Invalid test type.")
-#     return {'statistic': stat, 'p_value': p_value}
+    if test == 'JB':
+        result = JB_statistic(sample_data)
+        stat, p_value = result['statistic'], result['p_value']
+    elif test == 'shapiro':
+        stat, p_value = stats.shapiro(sample_data, axis=1)
+    # elif test == 'jarque_bera':
+    #     stat, p_value = stats.jarque_bera(sample_data)
+    else:
+        raise ValueError("Invalid test type.")
+    return {'statistic': stat, 'p_value': p_value}
